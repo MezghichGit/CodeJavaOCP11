@@ -9,7 +9,7 @@ public class StaticFinal {
 	final String nom = "OCP";
 	public static void main(String[] args) {
 		StaticFinal obj = new StaticFinal(); 
-		obj.nom="OC";
+		//obj.nom="OC";
 		obj.nom.concat("11");
 		System.out.println(obj.nom.concat("11")); //String est immutable
 		System.out.println(obj.nom);
