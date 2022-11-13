@@ -9,24 +9,25 @@ import java.sql.Statement;
 
 public class App {
 
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
-		Connection conn;
-		Driver drive;
-		
+	public static void main(String[] args) throws  ClassNotFoundException {
+		Connection conn=null;
+		Statement stmt=null;
+		ResultSet rs=null ;
 		//Class.forName("com.mysql.jdbc.Driver");
+		try {
 		conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/ocp11","root","");
 		System.out.println(conn);
 		
 		//Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 		//Statement stmt = conn.createStatement();
-		Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		 stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		//String req = "insert into etudiant(nom, moy) values('mr y','8.5')";
 		/*
 		String req = "delete from etudiant where id='1'";
 		int nb = stmt.executeUpdate(req);
 		System.out.println("nb = "+nb);*/
 		String req = "select * from etudiant";// where id='10'";
-		ResultSet rs = stmt.executeQuery(req);
+		 rs = stmt.executeQuery(req);
 		 //rs.afterLast();
 		rs.absolute(-2);
 		// System.out.println(rs.previous()); // true
@@ -42,6 +43,42 @@ public class App {
 			System.out.println(id+" "+nom+" "+moy);
 		//}*/
 		//}
+		}
+		catch(SQLException ex)
+		{
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs!=null)
+			{
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if(stmt!=null)
+			{
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if(conn!=null)
+			{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
 	}
 
