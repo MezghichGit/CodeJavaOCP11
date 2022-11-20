@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 public class Main {
 
-	public static void main(String[] args)  {
+	public static void main(String[] args)  throws SQLException{
 		String req = "select * from etudiant";
 		String req2 = "select nom from etudiant";
 		try(Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/ocp11","root","");
